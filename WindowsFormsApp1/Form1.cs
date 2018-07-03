@@ -35,15 +35,23 @@ namespace WindowsFormsApp1
             }
             var width = flowLayoutPanel1.Size.Width;
             this.flowLayoutPanel1.Size = new System.Drawing.Size(width, height);
+
+            //スクロールバーの設定
+            //最大値にはプログラムによってしか到達できません。
+            //ユーザーとの対話型操作によって到達できる最大値は、1 に Maximum プロパティ値を加えてから
+            //LargeChange プロパティ値を引いた値と同じです。
+            this.vScrollBar1.Maximum = height - 1;
+            this.vScrollBar1.LargeChange = this.panel2.Height;
+            this.vScrollBar1.SmallChange = this.panel2.Height;
         }
 
 
         private void vScrollBar1_Scroll(object sender, ScrollEventArgs e)
         {
             int x = this.flowLayoutPanel1.Location.X;
-            double y = e.NewValue / 100.0 * this.flowLayoutPanel1.Height;
+            int y = e.NewValue;
 
-            this.flowLayoutPanel1.Location = new Point(x, -(int)y);
+            this.flowLayoutPanel1.Location = new Point(x, -y);
             this.flowLayoutPanel1.Refresh();
         }
     }
